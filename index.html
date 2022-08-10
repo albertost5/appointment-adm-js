@@ -11,30 +11,29 @@
 </head>
 
 <body>
-    <h2 class="text-center my-5 tittle">APPOINTMENT MANAGER</h2>
+    <h2 class="text-center my-5 title">APPOINTMENT MANAGER</h2>
     <div class="container mt-5 p-5">
         <div id="content" class="row">
             <div class="col-md-6 add-appointment">
-                <form id="new-appointment">
+                <form id="appointment-form">
                     <legend class="mb-4">CLIENT INFO</legend>
                     <div class="form-group row">
                         <label class="col-sm-4 col-lg-4 col-form-label">Car's brand:</label>
                         <div class="col-sm-8 col-lg-8">
-                            <input type="text" id="car" name="car" class="form-control" placeholder="Nombre Mascota">
+                            <input type="text" id="brand" name="brand" class="form-control" placeholder="Car's brand">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 col-lg-4 col-form-label">Owner:</label>
                         <div class="col-sm-8 col-lg-8">
-                            <input type="text" id="owner" name="owner" class="form-control"
-                                placeholder="Nombre Dueño de la Mascota">
+                            <input type="text" id="owner" name="owner" class="form-control" placeholder="Owner">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-4 col-lg-4 col-form-label">Telephone:</label>
                         <div class="col-sm-8 col-lg-8">
                             <input type="tel" id="telephone" name="telephone" class="form-control"
-                                placeholder="Número de Teléfono">
+                                placeholder="Telephone number">
                         </div>
                     </div>
                     <div class="form-group row">
@@ -64,7 +63,7 @@
             </div>
             <div class="col-md-6">
                 <h2 id="manage" class="mb-4">Manage your appointments</h2>
-                <ul id="appointment" class="list-group appointmnets-list"></ul>
+                <ul id="appointment-list" class="list-group appointmnets-list"></ul>
             </div>
         </div>
         <!--.row-->
