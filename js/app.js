@@ -29,6 +29,13 @@ class Appointment {
     newAppointment( appointment ) {
         this.appointments = [ ...this.appointments, appointment ];
     }
+
+    replaceAppointment( appointment ) {
+        console.log(appointment.id);
+        console.log(this.appointments[0]);
+        const index = this.appointments.findIndex( appoinmnt => appoinmnt.id === appointment.id );
+        this.appointments[ index ] = appointment;
+    }
 }
 
 class UI {
@@ -49,7 +56,7 @@ class UI {
         }, 3000);
     }
 
-    showAppointment( {appointments} ) {
+    showAppointments( {appointments} ) {
 
         this.clearAppointmentList();
 
@@ -61,7 +68,6 @@ class UI {
             appointmentDiv.dataset.id = id;
 
             // Appointment HTML
-
             const brandTitle = document.createElement('h2');
             brandTitle.textContent = brand;
             brandTitle.classList.add('card-title', 'font-weight-bolder');
@@ -81,7 +87,27 @@ class UI {
             const descriptionp = document.createElement('p');
             descriptionp.innerHTML = `<span class="font-weight-bolder">Description: </span>${ description }`;
 
-            
+            const deleteBtn = document.createElement('button');
+            deleteBtn.classList.add('btn', 'btn-danger', 'mr-2');
+            deleteBtn.innerHTML = `
+                Delete 
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            `; 
+
+            deleteBtn.onclick = () => deleteAppointment( id );
+
+            const editBtn = document.createElement('button');
+            editBtn.classList.add('btn', 'btn-info');
+            editBtn.innerHTML = `
+                Edit
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+                </svg>
+            `;
+
+            editBtn.onclick = () => editAppointment( appointment );
 
             appointmentDiv.appendChild( brandTitle );
             appointmentDiv.appendChild( ownerp );
@@ -89,6 +115,8 @@ class UI {
             appointmentDiv.appendChild( datep );
             appointmentDiv.appendChild( timep );
             appointmentDiv.appendChild( descriptionp );
+            appointmentDiv.appendChild( deleteBtn );
+            appointmentDiv.appendChild( editBtn );
 
             appointmentList.appendChild( appointmentDiv );
         });
@@ -143,26 +171,33 @@ function descData( e ) {
 function addAppointment( e ) {
     e.preventDefault();
     
-    const { brand, owner, telephone, date, time, description } = appointmentObj;
-
+    // Appointment Object
+    const { brand, owner, telephone, date, time, description, id } = appointmentObj;
+    
     if( !brand || !owner || !telephone || !date || !time || !description ) {
         ui.showMessage( 'All fields are required', 'error' );
         return;
     }
-
-    // Add id to make the CRUD
-    appointmentObj.id = Date.now();
-
-    // Add the appointment
-    appointment.newAppointment( {...appointmentObj} );
+    
+    // Edit appointment (it could be done using a global variable);
+    if( document.querySelector('button[type="submit"]').textContent === 'Save changes' ) {
+        appointment.replaceAppointment( {...appointmentObj} );
+        ui.showMessage('Appointment edited successfully!');
+        document.querySelector('button[type="submit"]').textContent = 'Create Appointment';
+    } else {
+        // Add the appointment (add id to be able to do the CRUD)
+        appointmentObj.id = Date.now();
+        ui.showMessage('Appointment added successfully!');
+        appointment.newAppointment( {...appointmentObj} );
+    }
 
     // Reset obj to validate the obj 
     resetObj();
 
     form.reset();
-
+    console.log(appointment.appointments);
     // Display new appointment
-    ui.showAppointment( appointment );
+    ui.showAppointments( appointment );
 }
 
 function resetObj() {
@@ -174,6 +209,33 @@ function resetObj() {
     appointmentObj.description = '';
 }
 
+function deleteAppointment( appointmentId ) {
+    appointment.appointments = appointment.appointments.filter( appointmnt => appointmnt.id !== appointmentId );
+    document.querySelector(`[data-id="${appointmentId}"]`).remove();
+    ui.showMessage('Appointment deleted successfully!');
+} 
+
+function editAppointment( appointmentEd ) {
+    const { brand, owner, telephone, date, time, description, id } = appointmentEd;
+    
+    brandInput.value = brand;
+    ownerInput.value = owner;
+    telephoneInput.value = telephone;
+    dateInput.value = date;
+    timeInput.value = time;
+    descInput.value = description;
+
+    document.querySelector('button[type="submit"]').textContent = 'Save changes';
+    
+    // Appointment Object
+    appointmentObj.brand = brand;
+    appointmentObj.owner = owner;
+    appointmentObj.telephone = telephone;
+    appointmentObj.date = date;
+    appointmentObj.time = time;
+    appointmentObj.description = description;
+    appointmentObj.id = id;
+}
 
 
 eventListeners();

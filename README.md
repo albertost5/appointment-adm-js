@@ -6,6 +6,4 @@ Project to manage appointments using JS, DOM, events, classes...
 
 2. Add new appointments and show them in the list.
 
-3. 
-
-4. 
+3. Add the functionalities to delete and edit an appoinment from the list.
