@@ -6,7 +6,7 @@ class UI {
         const contentDiv = document.querySelector('#content');
         const messageDiv = document.createElement('div');
         messageDiv.textContent = message;
-        messageDiv.classList.add('alert', 'col-12', 'text-center', 'd-block');
+        messageDiv.classList.add('alert', 'col-12', 'text-center', 'd-block', 'error');
 
         type === 'error'
         ? messageDiv.classList.add('alert-danger')

@@ -13,3 +13,5 @@ Project to manage appointments using JS, DOM, events, classes, IndexedDb...
 4. Store the appointments in the browser through IndexedDb.
 
 5. Add testing with Jest.
+
+6. Add testing with Cypress.
