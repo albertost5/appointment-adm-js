@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Testing Appoinment class 1. Add new appoinment 1`] = `
+Appointment {
+  "appointments": [
+    {
+      "brand": "BMW",
+      "date": "11/11/2022",
+      "description": "New car!",
+      "id": 1661616567676,
+      "owner": "Alberto",
+      "telephone": "1234",
+      "time": "11:11",
+    },
+  ],
+}
+`;
+
+exports[`Testing Appoinment class 2. To delete an appoinment 1`] = `
+Appointment {
+  "appointments": [
+    {
+      "brand": "BMW",
+      "date": "12/11/2022",
+      "description": "First revision!",
+      "id": 1661616567676,
+      "owner": "Alberto",
+      "telephone": "1234",
+      "time": "10:00",
+    },
+  ],
+}
+`;
